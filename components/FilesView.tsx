@@ -40,7 +40,7 @@ const FilesView: React.FC<FilesViewProps> = ({ files, onUpload, onDelete }) => {
             id: f.id,
             name: f.name,
             size: Math.floor(size),
-            type: 'application/octet-stream',
+            type: 'application/pdf',
             url: '#'
         };
     });
