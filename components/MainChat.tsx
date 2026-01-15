@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { VoicePoweredOrb } from "@/components/ui/voice-powered-orb";
 import {
   Send,
   Mic,
@@ -79,18 +80,11 @@ const MainChat: React.FC<MainChatProps> = ({ onNewChat }) => {
 
         {isInitialState ? (
           /* Empty State / Hero Section (Design from Screenshot 2) */
-          <div className="h-full flex flex-col items-center justify-center px-4 -mt-6">
+          <div className="h-full flex flex-col items-center justify-center px-4 mt-4">
 
-            {/* 3D Orb Animation */}
-            <div className="mb-8 relative w-24 h-24 group cursor-pointer transition-transform duration-700 hover:scale-110">
-              {/* Outer Glow */}
-              <div className="absolute inset-0 bg-[#56B3EB] rounded-full blur-2xl opacity-30 animate-pulse"></div>
-              {/* The Sphere */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#56B3EB] via-blue-500 to-[#3D506D] shadow-inner"></div>
-              {/* Top Highlight (Gloss) */}
-              <div className="absolute top-1 left-3 w-16 h-8 bg-gradient-to-b from-white to-transparent opacity-30 rounded-[100%] blur-[2px] transform -rotate-12"></div>
-              {/* Bottom Reflection */}
-              <div className="absolute bottom-2 right-4 w-8 h-4 bg-[#56B3EB] opacity-20 blur-sm rounded-full"></div>
+            {/* Voice Powered Orb */}
+            <div className="mb-8 relative w-48 h-48 cursor-pointer transition-transform duration-700 hover:scale-105">
+              <VoicePoweredOrb enableVoiceControl={false} hue={0} />
             </div>
 
             <h1 className="text-4xl font-bold text-slate-800 mb-2 text-center tracking-tight">
