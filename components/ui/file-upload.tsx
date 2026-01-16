@@ -688,17 +688,17 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
 
                     <div className="bg-slate-100 p-1 rounded-lg flex items-center">
                         <Button
-                            variant={view === "list" ? "default" : "ghost"}
+                            variant="ghost"
                             size="icon"
-                            className={`size-7 rounded-md ${view === 'list' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
+                            className={`size-7 rounded-md transition-all ${view === 'list' ? 'bg-white shadow-sm text-slate-700' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50/50'}`}
                             onClick={() => setView("list")}
                         >
                             <ListIcon className="size-4" />
                         </Button>
                         <Button
-                            variant={view === "grid" ? "default" : "ghost"}
+                            variant="ghost"
                             size="icon"
-                            className={`size-7 rounded-md ${view === 'grid' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
+                            className={`size-7 rounded-md transition-all ${view === 'grid' ? 'bg-white shadow-sm text-slate-700' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50/50'}`}
                             onClick={() => setView("grid")}
                         >
                             <GridIcon className="size-4" />
@@ -711,7 +711,7 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                             variant="default"
                             size="lg"
                             onClick={openFileDialog}
-                            className="h-10 rounded-xl px-4 text-sm bg-slate-900 hover:bg-slate-800 transition-all shadow-sm"
+                            className="h-10 rounded-xl px-4 text-sm bg-[#3D506D] hover:bg-[#2D3C52] text-white transition-all shadow-sm border-none"
                         >
                             <UploadCloudIcon className="mr-2 size-4" aria-hidden="true" />
                             Add files
@@ -749,45 +749,35 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
 
             {filtered.length > 0 ? (
                 <div className="space-y-4">
-                    <div className="flex items-center justify-between py-2 px-1">
+                    <div className="flex items-center justify-between py-2 min-h-[44px]">
                         <div className="flex items-center gap-4">
-                            <label className="inline-flex cursor-pointer items-center gap-2.5 px-3 py-1.5 hover:bg-slate-50 rounded-xl transition-colors">
-                                <input
-                                    type="checkbox"
-                                    className="accent-slate-500 size-4 rounded border-slate-300"
-                                    checked={allSelected}
-                                    onChange={toggleAll}
-                                />
-                                <span className="text-sm font-medium text-slate-500">
-                                    {selected.size > 0 ? `${selected.size} selected` : 'Select all'}
-                                </span>
-                            </label>
-
                             {selected.size > 0 && (
-                                <div className="h-4 w-px bg-slate-200" />
-                            )}
-
-                            {selected.size > 0 && (
-                                <div className="flex items-center gap-3 animate-in fade-in slide-in-from-left-2 duration-200">
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={downloadSelected}
-                                        className="text-slate-500 h-9 px-3 rounded-lg hover:bg-slate-50"
-                                    >
-                                        <DownloadIcon className="mr-2 size-4" />
-                                        Download
-                                    </Button>
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={removeSelected}
-                                        className="text-slate-400 hover:text-red-500 hover:bg-red-50 h-9 px-3 rounded-lg"
-                                    >
-                                        <Trash2Icon className="mr-2 size-4" />
-                                        Remove
-                                    </Button>
-                                </div>
+                                <>
+                                    <span className="text-sm font-bold text-[#3D506D] bg-slate-100 px-3 py-1 rounded-lg animate-in fade-in zoom-in duration-200">
+                                        {selected.size} selected
+                                    </span>
+                                    <div className="h-4 w-px bg-slate-200" />
+                                    <div className="flex items-center gap-3 animate-in fade-in slide-in-from-left-2 duration-200">
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={downloadSelected}
+                                            className="text-slate-500 h-9 px-3 rounded-lg hover:bg-white hover:shadow-sm"
+                                        >
+                                            <DownloadIcon className="mr-2 size-4" />
+                                            Download
+                                        </Button>
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={removeSelected}
+                                            className="text-slate-400 hover:text-red-500 hover:bg-red-50 h-9 px-3 rounded-lg"
+                                        >
+                                            <Trash2Icon className="mr-2 size-4" />
+                                            Remove
+                                        </Button>
+                                    </div>
+                                </>
                             )}
                         </div>
                     </div>
@@ -798,7 +788,13 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                                 <TableHeader>
                                     <TableRow className="bg-slate-50/50 hover:bg-slate-50/50 border-none px-4">
                                         <TableHead className="w-12 text-center pl-6 h-12">
-
+                                            <input
+                                                type="checkbox"
+                                                className="accent-slate-500 size-4 rounded border-slate-300 align-middle"
+                                                checked={allSelected}
+                                                onChange={toggleAll}
+                                                title="Select all"
+                                            />
                                         </TableHead>
                                         <TableHead className="h-12 text-xs uppercase tracking-widest font-bold">File Name</TableHead>
                                         <TableHead className="h-12 text-xs uppercase tracking-widest font-bold">Type</TableHead>
