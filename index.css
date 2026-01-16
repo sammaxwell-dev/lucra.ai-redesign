@@ -1,6 +1,350 @@
-/* Lucra.ai Responsive Styles */
+/* Lucra.ai Premium Design System */
 
-/* Safe area insets for mobile notches (iOS) */
+:root {
+  /* Typography */
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Brand Colors */
+  --brand-primary: #3D506D;
+  --brand-primary-dark: #2D3C52;
+  --brand-primary-light: #4A5F7F;
+
+  /* Accent Colors */
+  --accent-soft: #6E7E95;
+  --accent-soft-light: #8E9DB2;
+  --accent-emerald: #10B981;
+  --accent-rose: #FB7185;
+
+  /* Neutrals */
+  --neutral-50: #F8FAFC;
+  --neutral-100: #F1F5F9;
+  --neutral-200: #E2E8F0;
+  --neutral-300: #CBD5E1;
+  --neutral-400: #94A3B8;
+  --neutral-500: #64748B;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1E293B;
+  --neutral-900: #0F172A;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
+  --gradient-soft: linear-gradient(135deg, var(--accent-soft) 0%, var(--accent-soft-light) 100%);
+  --gradient-subtle: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(248, 250, 252, 0.8) 100%);
+}
+
+/* Global Typography */
+body {
+  font-family: var(--font-body);
+  font-feature-settings: 'tnum' 1, 'cv02' 1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Tabular Numbers for Financial Data */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--neutral-300);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--neutral-400);
+}
+
+/* Mobile Scrollbar */
+@media (max-width: 640px) {
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+}
+
+/* Touch-friendly targets */
+@media (max-width: 640px) {
+  button:not(.no-min-height) {
+    min-height: 44px;
+  }
+}
+
+/* Prevent zoom on iOS */
+@media (max-width: 640px) {
+
+  input[type="text"],
+  input[type="email"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* Premium Animations */
+
+/* File Entrance Animation */
+@keyframes fileEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.file-enter {
+  animation: fileEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Stagger delays for multiple files */
+.file-enter:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.file-enter:nth-child(2) {
+  animation-delay: 50ms;
+}
+
+.file-enter:nth-child(3) {
+  animation-delay: 100ms;
+}
+
+.file-enter:nth-child(4) {
+  animation-delay: 150ms;
+}
+
+.file-enter:nth-child(5) {
+  animation-delay: 200ms;
+}
+
+.file-enter:nth-child(n+6) {
+  animation-delay: 250ms;
+}
+
+/* Shimmer Effect for Loading */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 20%,
+      rgba(255, 255, 255, 0.5) 60%,
+      rgba(255, 255, 255, 0) 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Pulse Animation for Upload Zone */
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Gradient Border Animation */
+@keyframes gradientBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-border {
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-primary-light), var(--brand-primary));
+  background-size: 200% 200%;
+  animation: gradientBorder 3s ease infinite;
+}
+
+/* Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Zoom In */
+@keyframes zoomIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.zoom-in {
+  animation: zoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slide In from Top */
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-1rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-from-top-4 {
+  animation: slideInFromTop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slide In from Bottom */
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-from-bottom-5 {
+  animation: slideInFromBottom 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Lift Effect for Hover */
+.lift-on-hover {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.lift-on-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Glow Effect */
+.glow-on-hover {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.glow-on-hover::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: var(--gradient-primary);
+  opacity: 0;
+  z-index: -1;
+  filter: blur(8px);
+  transition: opacity 0.3s ease;
+}
+
+.glow-on-hover:hover::before {
+  opacity: 0.5;
+}
+
+/* Decorative Background Pattern */
+.pattern-dots {
+  background-image: radial-gradient(circle, var(--neutral-200) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.pattern-grid {
+  background-image:
+    linear-gradient(var(--neutral-200) 1px, transparent 1px),
+    linear-gradient(90deg, var(--neutral-200) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Glass Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Utility Classes */
+.animate-in {
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+/* Responsive Safe Areas */
 .safe-area-inset-top {
   padding-top: env(safe-area-inset-top);
 }
@@ -9,43 +353,7 @@
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Custom scrollbar improvements */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-/* Mobile-specific scrollbar */
-@media (max-width: 640px) {
-  ::-webkit-scrollbar {
-    width: 3px;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 3px;
-  }
-}
-
-/* Touch-friendly targets on mobile */
-@media (max-width: 640px) {
-  button:not(.no-min-height) {
-    min-height: 44px;
-  }
-}
-
-/* Ultrawide container constraint */
+/* Ultrawide Constraint */
 @media (min-width: 2560px) {
   .ultrawide-limit {
     max-width: 2400px;
@@ -53,63 +361,8 @@
   }
 }
 
-/* Smooth transitions for sidebar */
+/* Smooth Transitions */
 .sidebar-transition {
-  transition: width 300ms ease-out, transform 300ms ease-out;
-}
-
-/* Ensure inputs don't zoom on iOS */
-@media (max-width: 640px) {
-  input[type="text"],
-  input[type="email"],
-  textarea {
-    font-size: 16px;
-  }
-}
-
-/* Animate-in classes for modals */
-.animate-in {
-  animation-duration: 300ms;
-  animation-fill-mode: forwards;
-}
-
-.fade-in {
-  animation-name: fadeIn;
-}
-
-.zoom-in {
-  animation-name: zoomIn;
-}
-
-.slide-in-from-top-4 {
-  animation-name: slideInFromTop;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes zoomIn {
-  from {
-    transform: scale(0.95);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-@keyframes slideInFromTop {
-  from {
-    transform: translateY(-1rem);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }

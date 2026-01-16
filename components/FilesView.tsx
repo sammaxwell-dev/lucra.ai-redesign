@@ -65,13 +65,20 @@ const FilesView: React.FC<FilesViewProps> = ({ files, onUpload, onDelete }) => {
 
     return (
         <main className="flex-1 h-screen md:h-[95vh] my-0 md:my-auto mx-0 md:mx-4 bg-white rounded-none md:rounded-[2rem] shadow-sm border-0 md:border border-slate-100 overflow-hidden relative flex flex-col">
-            <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-6 md:p-10 pt-14 md:pt-8">
+            {/* Decorative Background Pattern */}
+            <div className="absolute inset-0 pattern-dots opacity-30 pointer-events-none" />
+
+            <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-6 md:p-10 pt-14 md:pt-8 relative z-10">
 
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 md:mb-10 gap-4">
                     <div>
-                        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 tracking-tight mb-1">Files & Assets</h1>
-                        <p className="text-slate-500 text-sm md:text-base">Manage your financial records and reports.</p>
+                        <h1 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-slate-800 tracking-tight mb-1">
+                            <span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">
+                                Files & Assets
+                            </span>
+                        </h1>
+                        <p className="text-slate-500 text-sm md:text-base font-body">Manage your financial records and reports.</p>
                     </div>
                 </div>
 

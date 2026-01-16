@@ -631,12 +631,12 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
 
     return (
         <div className="flex flex-col gap-6 w-full">
-            <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center justify-start gap-8">
                 <div className="flex items-center gap-3">
-                    <h3 className="text-base font-semibold text-slate-800">
+                    <h3 className="text-base font-display font-bold text-slate-800 tracking-tight">
                         Files <span className="text-slate-400 font-normal">({files.length})</span>
                     </h3>
-                    <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 text-xs font-medium">
+                    <span className="px-2.5 py-1 rounded-lg bg-slate-50 text-slate-500 text-xs font-bold tabular-nums border border-slate-100 shadow-sm">
                         {formatBytes(totalSize)}
                     </span>
                 </div>
@@ -648,7 +648,7 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder="Search..."
-                            className="bg-slate-50 hover:bg-white focus:bg-white ring-offset-background transition-all h-9 w-48 sm:w-64 rounded-xl border border-slate-200 px-9 text-sm outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500"
+                            className="bg-slate-50 hover:bg-white focus:bg-white ring-offset-background transition-all h-9 w-48 sm:w-64 rounded-xl border border-slate-200 px-9 text-sm outline-none focus:ring-2 focus:ring-[#3D506D]/10 focus:border-[#3D506D]"
                             aria-label="Search files"
                         />
                         <SearchIcon
@@ -726,21 +726,33 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
                 data-dragging={isDragging || undefined}
-                className="group relative border-2 border-dashed border-slate-200 hover:border-blue-400 bg-slate-50/50 hover:bg-slate-50 data-[dragging=true]:bg-blue-50 data-[dragging=true]:border-blue-500 rounded-2xl p-5 transition-all duration-200 text-center"
+                className="group relative border-2 border-dashed rounded-2xl p-6 transition-all duration-300 text-center overflow-hidden
+                           border-slate-200 hover:border-[#3D506D] bg-slate-50/50 hover:bg-slate-50 hover:shadow-md
+                           data-[dragging=true]:border-transparent data-[dragging=true]:bg-gradient-to-br data-[dragging=true]:from-[#3D506D]/10 data-[dragging=true]:via-[#4A5F7F]/10 data-[dragging=true]:to-[#3D506D]/10"
             >
+                {/* Animated gradient border when dragging */}
+                {isDragging && (
+                    <div className="absolute inset-0 rounded-2xl p-[2px] gradient-border">
+                        <div className="h-full w-full rounded-2xl bg-white" />
+                    </div>
+                )}
+
                 <input
                     {...getInputProps({
                         "aria-label": "Upload files",
                     })}
                     className="sr-only"
                 />
-                <div className="flex flex-col items-center justify-center gap-3">
-                    <div className="w-12 h-12 bg-slate-100 text-slate-400 rounded-xl flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-500 transition-all shadow-sm">
-                        <UploadCloudIcon className="size-6" />
+                <div className="flex flex-col items-center justify-center gap-3 relative z-10">
+                    <div className="w-14 h-14 bg-gradient-to-br from-slate-100 to-slate-50 text-[#3D506D] rounded-2xl flex items-center justify-center 
+                                  group-hover:from-[#3D506D]/10 group-hover:to-[#4A5F7F]/10 group-hover:text-[#3D506D] group-hover:scale-110
+                                  data-[dragging]:scale-110 transition-all duration-300 shadow-sm group-hover:shadow-md"
+                        data-dragging={isDragging || undefined}>
+                        <UploadCloudIcon className={`size-7 ${isDragging ? 'pulse' : ''}`} />
                     </div>
                     <div>
-                        <p className="text-base font-semibold text-slate-800">Drop files to upload</p>
-                        <p className="text-slate-400 text-xs mt-0.5">
+                        <p className="text-base font-display font-semibold text-slate-800 mb-1">Drop files to upload</p>
+                        <p className="text-slate-400 text-xs">
                             Up to {maxFiles} files · {formatBytes(maxSize)} per file · SVG, PNG, JPG, or PDF
                         </p>
                     </div>
@@ -748,21 +760,21 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
             </div>
 
             {filtered.length > 0 ? (
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between py-2 min-h-[44px]">
-                        <div className="flex items-center gap-4">
-                            {selected.size > 0 && (
-                                <>
+                <div className="mt-6">
+                    <div className={`grid transition-all duration-300 ease-in-out ${selected.size > 0 ? 'grid-rows-[1fr] opacity-100 mb-4' : 'grid-rows-[0fr] opacity-0 mb-0'}`}>
+                        <div className="overflow-hidden">
+                            <div className="flex items-center justify-between py-2 px-1">
+                                <div className="flex items-center gap-4">
                                     <span className="text-sm font-bold text-[#3D506D] bg-slate-100 px-3 py-1 rounded-lg animate-in fade-in zoom-in duration-200">
                                         {selected.size} selected
                                     </span>
                                     <div className="h-4 w-px bg-slate-200" />
-                                    <div className="flex items-center gap-3 animate-in fade-in slide-in-from-left-2 duration-200">
+                                    <div className="flex items-center gap-3 animate-in fade-in slide-in-from-left-2 duration-300">
                                         <Button
                                             variant="ghost"
                                             size="sm"
                                             onClick={downloadSelected}
-                                            className="text-slate-500 h-9 px-3 rounded-lg hover:bg-white hover:shadow-sm"
+                                            className="text-slate-500 h-9 px-3 rounded-lg hover:bg-white hover:shadow-sm transition-all"
                                         >
                                             <DownloadIcon className="mr-2 size-4" />
                                             Download
@@ -771,14 +783,14 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                                             variant="ghost"
                                             size="sm"
                                             onClick={removeSelected}
-                                            className="text-slate-400 hover:text-red-500 hover:bg-red-50 h-9 px-3 rounded-lg"
+                                            className="text-slate-400 hover:text-red-500 hover:bg-red-50 h-9 px-3 rounded-lg transition-all"
                                         >
                                             <Trash2Icon className="mr-2 size-4" />
                                             Remove
                                         </Button>
                                     </div>
-                                </>
-                            )}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -812,40 +824,43 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                                         const percentOfMax = Math.min(100, Math.round((size / maxSize) * 100))
 
                                         return (
-                                            <TableRow key={entry.id} data-selected={isSelected || undefined} className="group border-slate-50 hover:bg-slate-50/30">
+                                            <TableRow key={entry.id} data-selected={isSelected || undefined} className="file-enter group border-slate-50 hover:bg-slate-50/50 transition-colors">
                                                 <TableCell className="pl-6 text-center py-4">
                                                     <input
                                                         type="checkbox"
-                                                        className="accent-slate-500 size-4 rounded border-slate-300"
+                                                        className="accent-[#3D506D] size-4 rounded border-slate-300 transition-all"
                                                         checked={isSelected}
                                                         onChange={() => toggleOne(entry.id)}
                                                     />
                                                 </TableCell>
                                                 <TableCell className="font-medium py-4">
                                                     <div className="flex items-center gap-4">
-                                                        <span className="p-2 bg-slate-50 rounded-xl text-slate-400 group-hover:bg-white group-hover:shadow-sm transition-all border border-transparent group-hover:border-slate-100">
+                                                        <span className="p-2.5 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl text-slate-500 
+                                                                       group-hover:from-[#3D506D]/10 group-hover:to-[#4A5F7F]/10 group-hover:text-[#3D506D] 
+                                                                       group-hover:shadow-md transition-all duration-300 border border-slate-100 group-hover:border-[#3D506D]/20">
                                                             {getFileIcon(entry)}
                                                         </span>
-                                                        <div className="flex flex-col gap-1 max-w-[200px] sm:max-w-md xl:max-w-lg">
-                                                            <span className="truncate text-[15px] text-slate-700">{name}</span>
-                                                            <div className="h-1 w-24 bg-slate-100 rounded-full overflow-hidden">
-                                                                <div className="h-full bg-slate-300 transition-all duration-1000" style={{ width: `${percentOfMax}%` }} />
+                                                        <div className="flex flex-col gap-1.5 max-w-[200px] sm:max-w-md xl:max-w-lg">
+                                                            <span className="truncate text-[15px] font-display font-medium text-slate-700 group-hover:text-slate-900 transition-colors">{name}</span>
+                                                            <div className="h-1.5 w-28 bg-slate-100 rounded-full overflow-hidden">
+                                                                <div className="h-full bg-gradient-to-r from-[#3D506D] to-[#4A5F7F] transition-all duration-1000 rounded-full"
+                                                                    style={{ width: `${percentOfMax}%` }} />
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </TableCell>
-                                                <TableCell className="text-slate-400 text-sm py-4 uppercase font-medium tracking-tight">
+                                                <TableCell className="text-slate-400 text-sm py-4 uppercase font-medium tracking-tight font-body">
                                                     {niceSubtype(type)}
                                                 </TableCell>
-                                                <TableCell className="text-slate-400 tabular-nums text-sm py-4">
+                                                <TableCell className="text-slate-500 tabular-nums text-sm py-4 font-medium">
                                                     {formatBytes(size)}
                                                 </TableCell>
                                                 <TableCell className="text-right pr-6 py-4">
-                                                    <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                                                    <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                                         <Button
                                                             size="icon"
                                                             variant="ghost"
-                                                            className="size-9 text-slate-400 hover:text-slate-600 hover:bg-white hover:shadow-sm rounded-lg"
+                                                            className="size-9 text-slate-400 hover:text-[#3D506D] hover:bg-[#3D506D]/5 hover:shadow-md rounded-xl transition-all"
                                                             onClick={() => url && window.open(url, "_blank", "noopener,noreferrer")}
                                                             title="Open"
                                                         >
@@ -854,7 +869,7 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                                                         <Button
                                                             size="icon"
                                                             variant="ghost"
-                                                            className="size-9 text-slate-400 hover:text-slate-600 hover:bg-white hover:shadow-sm rounded-lg"
+                                                            className="size-9 text-slate-400 hover:text-[#3D506D] hover:bg-[#3D506D]/5 hover:shadow-md rounded-xl transition-all"
                                                             onClick={() => downloadOne(entry)}
                                                             title="Download"
                                                         >
@@ -863,7 +878,7 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                                                         <Button
                                                             size="icon"
                                                             variant="ghost"
-                                                            className="size-9 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg"
+                                                            className="size-9 text-slate-400 hover:text-red-500 hover:bg-red-50 hover:shadow-md rounded-xl transition-all"
                                                             onClick={() => removeFile(entry.id)}
                                                             title="Remove"
                                                         >
@@ -892,18 +907,19 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                                 return (
                                     <div
                                         key={entry.id}
-                                        className={`group relative flex flex-col overflow-hidden rounded-2xl border transition-all duration-300 bg-white hover:shadow-xl hover:-translate-y-1 ${isSelected ? 'border-slate-400 shadow-lg' : 'border-slate-100 shadow-sm'}`}
+                                        className={`file-enter lift-on-hover group relative flex flex-col overflow-hidden rounded-2xl border transition-all duration-300 bg-white cursor-pointer
+                                                   ${isSelected ? 'border-[#3D506D] shadow-xl ring-2 ring-[#3D506D]/20' : 'border-slate-100 shadow-sm hover:border-[#3D506D]/30'}`}
                                     >
                                         <div className="absolute top-3 left-3 z-10">
                                             <input
                                                 type="checkbox"
-                                                className="accent-slate-500 size-4 rounded border-slate-300 shadow-sm"
+                                                className="accent-[#3D506D] size-4 rounded border-slate-300 shadow-sm transition-all"
                                                 checked={isSelected}
                                                 onChange={() => toggleOne(entry.id)}
                                             />
                                         </div>
 
-                                        <div className="aspect-[4/3] w-full overflow-hidden bg-slate-50 relative flex items-center justify-center">
+                                        <div className="aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 relative flex items-center justify-center">
                                             {isImage && url ? (
                                                 <img
                                                     src={url}
@@ -912,23 +928,23 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                                                     draggable={false}
                                                 />
                                             ) : (
-                                                <div className="text-slate-200">
-                                                    <div className="scale-[1.5] transition-all duration-300 group-hover:scale-[1.7] group-hover:text-slate-300">
+                                                <div className="text-slate-300 group-hover:text-[#3D506D] transition-all duration-300">
+                                                    <div className="scale-[1.8] transition-all duration-300 group-hover:scale-[2]">
                                                         {getFileIcon(entry)}
                                                     </div>
                                                 </div>
                                             )}
 
-                                            <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                         </div>
 
-                                        <div className="flex flex-col gap-1 p-4">
-                                            <div className="truncate text-sm font-bold text-slate-700 group-hover:text-slate-900 transition-colors" title={name}>
+                                        <div className="flex flex-col gap-1.5 p-4">
+                                            <div className="truncate text-sm font-display font-semibold text-slate-700 group-hover:text-slate-900 transition-colors" title={name}>
                                                 {name}
                                             </div>
-                                            <div className="flex items-center justify-between text-[11px] text-slate-400 tracking-wider font-medium uppercase">
+                                            <div className="flex items-center justify-between text-[11px] text-slate-400 tracking-wider font-medium uppercase font-body">
                                                 <span>{niceSubtype(type)}</span>
-                                                <span>{formatBytes(size)}</span>
+                                                <span className="tabular-nums">{formatBytes(size)}</span>
                                             </div>
                                         </div>
                                     </div>
