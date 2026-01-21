@@ -14,5 +14,6 @@ export interface ChatSession {
 export enum ViewState {
   HOME = 'HOME',
   CHATS = 'CHATS',
-  FILES = 'FILES'
+  FILES = 'FILES',
+  SETTINGS = 'SETTINGS'
 }

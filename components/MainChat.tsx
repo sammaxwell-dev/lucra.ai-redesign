@@ -106,7 +106,11 @@ const MainChat: React.FC<MainChatProps> = ({ onNewChat }) => {
                 <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
                   <UserPlus className="text-blue-600" size={24} />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-2">Add an accountant</h3>
+                <h3 className="text-2xl font-bold mb-2">
+                  <span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">
+                    Add an accountant
+                  </span>
+                </h3>
                 <p className="text-slate-500 text-sm leading-relaxed">
                   Do you want to add an accountant to the chat? They will be able to see the conversation and help with your taxes.
                 </p>
@@ -181,11 +185,13 @@ const MainChat: React.FC<MainChatProps> = ({ onNewChat }) => {
               <VoicePoweredOrb enableVoiceControl={false} hue={0} />
             </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-2 text-center tracking-tight px-2">
-              Good Morning, Shamil Musaev
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 text-center tracking-tight px-2">
+              <span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">
+                Good Morning, Shamil Musaev
+              </span>
             </h1>
             <h2 className="text-lg sm:text-xl md:text-2xl font-light text-slate-400 mb-4 md:mb-6 text-center px-2">
-              How can I help with your <span className="text-[#3D506D] font-medium">financials</span> today?
+              How can I help with your <span className="font-medium"><span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">financials</span></span> today?
             </h2>
 
             {/* Central Input Card */}
@@ -222,7 +228,11 @@ const MainChat: React.FC<MainChatProps> = ({ onNewChat }) => {
               >
                 <div className="flex items-center gap-2 mb-2 text-slate-500">
                   <FileText size={18} />
-                  <span className="font-semibold text-sm text-slate-800">Company Forms</span>
+                  <span className="font-semibold text-sm">
+                    <span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">
+                      Company Forms
+                    </span>
+                  </span>
                 </div>
                 <p className="text-slate-500 text-xs leading-relaxed">
                   Differences between sole trader (Enskild) and limited company (AB).
@@ -235,7 +245,11 @@ const MainChat: React.FC<MainChatProps> = ({ onNewChat }) => {
               >
                 <div className="flex items-center gap-2 mb-2 text-slate-500">
                   <Calculator size={18} />
-                  <span className="font-semibold text-sm text-slate-800">Business Data</span>
+                  <span className="font-semibold text-sm">
+                    <span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">
+                      Business Data
+                    </span>
+                  </span>
                 </div>
                 <p className="text-slate-500 text-xs leading-relaxed">
                   Analyze client data, Profit & Loss, and balance sheet insights.
@@ -248,7 +262,11 @@ const MainChat: React.FC<MainChatProps> = ({ onNewChat }) => {
               >
                 <div className="flex items-center gap-2 mb-2 text-slate-500">
                   <TrendingUp size={18} />
-                  <span className="font-semibold text-sm text-slate-800">Key Dates</span>
+                  <span className="font-semibold text-sm">
+                    <span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">
+                      Key Dates
+                    </span>
+                  </span>
                 </div>
                 <p className="text-slate-500 text-xs leading-relaxed">
                   Important deadlines for VAT, employer contributions, and declarations.

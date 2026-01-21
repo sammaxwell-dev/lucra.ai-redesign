@@ -73,7 +73,7 @@ const FilesView: React.FC<FilesViewProps> = ({ files, onUpload, onDelete }) => {
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 md:mb-10 gap-4">
                     <div>
-                        <h1 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-slate-800 tracking-tight mb-1">
+                        <h1 className="text-xl sm:text-2xl md:text-3xl font-display font-bold tracking-tight mb-1">
                             <span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">
                                 Files & Assets
                             </span>

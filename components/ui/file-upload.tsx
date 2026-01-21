@@ -631,92 +631,30 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
 
     return (
         <div className="flex flex-col gap-6 w-full">
-            <div className="flex flex-wrap items-center justify-start gap-8">
+            <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <h3 className="text-base font-display font-bold text-slate-800 tracking-tight">
-                        Files <span className="text-slate-400 font-normal">({files.length})</span>
+                    <h3 className="text-base font-display font-bold tracking-tight">
+                        <span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">
+                            Files
+                        </span>
+                        <span className="text-slate-400 font-normal ml-1">({files.length})</span>
                     </h3>
                     <span className="px-2.5 py-1 rounded-lg bg-slate-50 text-slate-500 text-xs font-bold tabular-nums border border-slate-100 shadow-sm">
                         {formatBytes(totalSize)}
                     </span>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3">
-                    <div className="relative group">
-                        <input
-                            type="text"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Search..."
-                            className="bg-slate-50 hover:bg-white focus:bg-white ring-offset-background transition-all h-9 w-48 sm:w-64 rounded-xl border border-slate-200 px-9 text-sm outline-none focus:ring-2 focus:ring-[#3D506D]/10 focus:border-[#3D506D]"
-                            aria-label="Search files"
-                        />
-                        <SearchIcon
-                            className="text-slate-400 pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2"
-                            aria-hidden="true"
-                        />
-                    </div>
-
-                    <div className="h-4 w-px bg-slate-200 mx-1 hidden sm:block" />
-
-                    <div className="flex items-center gap-1">
-                        <select
-                            id="sortby"
-                            className="bg-transparent h-9 rounded-lg border-none text-sm font-medium text-slate-600 focus:ring-0 cursor-pointer hover:bg-slate-50"
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                            aria-label="Sort files"
-                        >
-                            <option value="name">Name</option>
-                            <option value="type">Type</option>
-                            <option value="size">Size</option>
-                        </select>
-
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="size-8 text-slate-500"
-                            onClick={() => setSortDir((d) => (d === "asc" ? "desc" : "asc"))}
-                        >
-                            {sortDir === "asc" ? (
-                                <SortAscIcon className="size-4" />
-                            ) : (
-                                <SortDescIcon className="size-4" />
-                            )}
-                        </Button>
-                    </div>
-
-                    <div className="bg-slate-100 p-1 rounded-lg flex items-center">
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className={`size-7 rounded-md transition-all ${view === 'list' ? 'bg-white shadow-sm text-slate-700' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50/50'}`}
-                            onClick={() => setView("list")}
-                        >
-                            <ListIcon className="size-4" />
-                        </Button>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className={`size-7 rounded-md transition-all ${view === 'grid' ? 'bg-white shadow-sm text-slate-700' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50/50'}`}
-                            onClick={() => setView("grid")}
-                        >
-                            <GridIcon className="size-4" />
-                        </Button>
-                    </div>
-
-                    <div className="pl-1 flex items-center gap-3">
-                        {actions}
-                        <Button
-                            variant="default"
-                            size="lg"
-                            onClick={openFileDialog}
-                            className="h-10 rounded-xl px-4 text-sm bg-[#3D506D] hover:bg-[#2D3C52] text-white transition-all shadow-sm border-none"
-                        >
-                            <UploadCloudIcon className="mr-2 size-4" aria-hidden="true" />
-                            Add files
-                        </Button>
-                    </div>
+                <div className="flex items-center gap-3">
+                    {actions}
+                    <Button
+                        variant="default"
+                        size="lg"
+                        onClick={openFileDialog}
+                        className="h-10 rounded-xl px-4 text-sm bg-[#3D506D] hover:bg-[#2D3C52] text-white transition-all shadow-sm border-none"
+                    >
+                        <UploadCloudIcon className="mr-2 size-4" aria-hidden="true" />
+                        Add files
+                    </Button>
                 </div>
             </div>
 
@@ -751,7 +689,11 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                         <UploadCloudIcon className={`size-7 ${isDragging ? 'pulse' : ''}`} />
                     </div>
                     <div>
-                        <p className="text-base font-display font-semibold text-slate-800 mb-1">Drop files to upload</p>
+                        <p className="text-base font-display font-semibold mb-1">
+                            <span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">
+                                Drop files to upload
+                            </span>
+                        </p>
                         <p className="text-slate-400 text-xs">
                             Up to {maxFiles} files · {formatBytes(maxSize)} per file · SVG, PNG, JPG, or PDF
                         </p>
@@ -966,7 +908,11 @@ export default function FileUpload({ initialFiles = [], onFilesChange, actions }
                         <AlertCircleIcon className="size-5 text-red-500" />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-sm font-bold text-slate-800">Upload Error</span>
+                        <span className="text-sm font-bold">
+                            <span className="bg-gradient-to-r from-[#3D506D] via-[#4A5F7F] to-[#3D506D] bg-clip-text text-transparent">
+                                Upload Error
+                            </span>
+                        </span>
                         <span className="text-xs text-slate-500">{errors[0]}</span>
                     </div>
                     <button onClick={clearErrors} className="ml-4 p-2 text-slate-300 hover:text-slate-500 hover:bg-slate-50 rounded-lg transition-all">

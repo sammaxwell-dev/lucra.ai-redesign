@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import MainChat from './components/MainChat';
 import { ViewState } from './types';
+import { PanelLeft } from 'lucide-react';
 
 import FilesView from './components/FilesView';
+import SettingsView from './components/SettingsView';
 
 interface FileData {
   id: string;
@@ -16,7 +18,7 @@ const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.CHATS);
   // Key state to force re-render/reset of chat
   const [sessionKey, setSessionKey] = useState(0);
-  // Sidebar collapsed state (desktop) and mobile menu open state
+  // Sidebar state
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -40,21 +42,30 @@ const App: React.FC = () => {
   const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev);
 
   return (
-    <div className="flex w-full h-screen max-w-[2560px] mx-auto bg-slate-50 overflow-hidden font-sans">
-      <Sidebar
-        currentView={currentView}
-        setView={setCurrentView}
-        onNewChat={handleNewChat}
-        isCollapsed={isSidebarCollapsed}
-        onToggle={toggleSidebar}
-        isMobileOpen={isMobileMenuOpen}
-        onMobileToggle={toggleMobileMenu}
-      />
-      {currentView === ViewState.FILES ? (
-        <FilesView files={files} onUpload={handleSetFiles} onDelete={() => { }} />
-      ) : (
-        <MainChat key={sessionKey} onNewChat={handleNewChat} />
-      )}
+    <div className="flex w-full h-screen max-w-[2560px] mx-auto bg-slate-50 overflow-hidden font-sans relative">
+      <div className="flex w-full h-full transition-all duration-500 ease-in-out">
+        <div className={`transition-all duration-500 ease-in-out h-full overflow-hidden flex-shrink-0 flex items-center ${isSidebarCollapsed ? 'w-24' : 'w-80'}`}>
+          <Sidebar
+            currentView={currentView}
+            setView={setCurrentView}
+            onNewChat={handleNewChat}
+            isCollapsed={isSidebarCollapsed}
+            onToggle={toggleSidebar}
+            isMobileOpen={isMobileMenuOpen}
+            onMobileToggle={toggleMobileMenu}
+          />
+        </div>
+
+        <div className="flex-1 h-full overflow-hidden flex items-center">
+          {currentView === ViewState.FILES ? (
+            <FilesView files={files} onUpload={handleSetFiles} onDelete={() => { }} />
+          ) : currentView === ViewState.SETTINGS ? (
+            <SettingsView />
+          ) : (
+            <MainChat key={sessionKey} onNewChat={handleNewChat} />
+          )}
+        </div>
+      </div>
     </div>
   );
 };
